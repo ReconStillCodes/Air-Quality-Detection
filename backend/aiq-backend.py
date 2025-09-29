@@ -7,15 +7,6 @@ import joblib
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
 
-LOADED_MODEL = None
-if joblib:
-    try:
-        # Load the model from the specified file path
-        LOADED_MODEL = joblib.load("xgb_model_air_quality.pkl")
-        print("XGBoost model loaded successfully from xgb_model_air_quality.pkl.")
-    except Exception as e:
-        print(f"WARNING: Could not load ML model from file. {e}. Using CO level fallback for quality calculation.")
-        LOADED_MODEL = None
 
 class SensorData:
     def __init__(self, temperature, humidity, co, timestamp, quality):
@@ -47,25 +38,6 @@ def calculate_quality_using_temperature(temperature: float) -> str:
     else:
         return "Hazardous"
     
-def calculate_quality_using_ml(temperature:float, humidity:float, co:float)->str:
-    """
-        Uses the sensor readings to determine the air quality category.
-        Attempts ML prediction first, falls back to CO level calculation on failure.
-        """
-    global LOADED_MODEL
-
-    if LOADED_MODEL:
-       try:
-           new_data = [[temperature, humidity, co]]
-           predictions_integer = LOADED_MODEL.predict(new_data)
-           labels = ['Good', 'Moderate', 'Poor', 'Hazardous']
-           return labels[int(predictions_integer[0])]
-       
-       except Exception as e:
-           print(f"ML Prediction failed: {e}. Falling back to CO level calculation.")
-
-    # Fallback
-    return calculate_quality_using_temperature(temperature)
 
 def is_buzzer_on(quality: str)->bool:
     if(quality == 'Good'):
@@ -104,7 +76,7 @@ def process_data():
         
         #Calculate Timestamp & Quality
         timestamp = datetime.now()
-        quality = calculate_quality_using_ml(temperature, humidity, co)
+        quality = calculate_quality_using_temperature(temperature)
         isBuzzerOn = is_buzzer_on(quality)
         
         #Send Data to Frontend
