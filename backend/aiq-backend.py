@@ -67,6 +67,12 @@ def calculate_quality_using_ml(temperature:float, humidity:float, co:float)->str
     # Fallback
     return calculate_quality_using_temperature(temperature)
 
+def is_buzzer_on(quality: str)->bool:
+    if(quality == 'Good'):
+        return False
+    else:
+        return True
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'knphidupsusah'
@@ -79,12 +85,12 @@ def index():
 @app.route('/data', methods=['POST'])
 def process_data():
     if not request.is_json:
-        return jsonify({"error": "Request must be JSON"}), 400
+        return jsonify({"error": "Request must be JSON", "isBuzzerOn": False}), 400
     
     data = request.get_json(silent=True)
 
     if data is None or not isinstance(data, dict):
-        return jsonify({"error": "Failed to decode JSON object. Request body might be empty or malformed."}), 400
+        return jsonify({"error": "Failed to decode JSON object. Request body might be empty or malformed.", "isBuzzerOn": False}), 400
     
     try:
         #Get Data
@@ -94,11 +100,12 @@ def process_data():
 
         #Parameter Validation
         if temperature is None or humidity is None or co is None:
-            return jsonify({"error": "Missing one or more required fields (temperature, humidity, co)"}), 400   
+            return jsonify({"error": "Missing one or more required fields (temperature, humidity, co)", "isBuzzerOn": False}), 400   
         
         #Calculate Timestamp & Quality
         timestamp = datetime.now()
         quality = calculate_quality_using_ml(temperature, humidity, co)
+        isBuzzerOn = is_buzzer_on(quality)
         
         #Send Data to Frontend
         sensorData = SensorData(temperature, humidity, co, timestamp, quality)
@@ -108,11 +115,11 @@ def process_data():
 
         return jsonify({
             "message": "Data processed, quality calculated, and data emitted via SocketIO.",
-            "quality": quality
+            "isBuzzerOn": isBuzzerOn
         }), 200
     
     except TypeError:
-        return jsonify({"error": "Invalid data type provided. Ensure temperature, humidity, and co are numbers."}), 400
+        return jsonify({"error": "Invalid data type provided. Ensure temperature, humidity, and co are numbers.", "isBuzzerOn": False}), 400
     
     except Exception as e:
         print(f"Error processing data: {e}")
