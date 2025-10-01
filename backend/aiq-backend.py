@@ -1,8 +1,6 @@
-import random
-import time
-from threading import Thread
 from datetime import datetime
-import joblib
+import eventlet
+eventlet.monkey_patch()
 
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
@@ -48,7 +46,7 @@ def is_buzzer_on(quality: str)->bool:
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'knphidupsusah'
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
 @app.route('/')
 def index():
@@ -99,38 +97,10 @@ def process_data():
         
         
 
-#Generate beberapa data
-#Hanya untuk test
-def background_data_generator():
-    print("Starting background data generator...")
-    quality_options = ["Good", "Moderate", "Poor", "Hazardous"]
-
-    while True:
-        # Generate random data
-        temperature = round(random.uniform(20.0, 40.0), 2)
-        humidity = round(random.uniform(40.0, 80.0), 2)
-        co = random.randint(100, 1100)
-        timestamp = datetime.now()
-        quality = random.choice(quality_options)
-        
-        # Create a SensorData object
-        data_point = SensorData(temperature, humidity, co, timestamp, quality)
-        
-        # Emit the data to the frontend via WebSocket
-        socketio.emit("new_sensor_data", data_point.to_dict())
-        
-        print(f"Emitted new data: {data_point.to_dict()}")
-        time.sleep(30)
-
 @socketio.on('connect')
 def on_connect():
     print("Client connected!")
 
-    # Activate Background Data Generation
-
-    # thread = Thread(target=background_data_generator)
-    # thread.daemon = True # Allows the thread to exit with the main app
-    # thread.start()
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
