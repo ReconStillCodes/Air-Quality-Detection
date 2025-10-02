@@ -8,6 +8,9 @@ import {
   Tooltip,
   Brush,
   ResponsiveContainer,
+  ReferenceLine,
+  ReferenceArea,
+  Area,
 } from "recharts";
 
 import "../../index.css";
@@ -22,12 +25,34 @@ import {
   textFormatterForQuality,
 } from "../../formatter/TextFormatter";
 
+const THRESHOLD_Y = 27;
+const RED_COLOR = "#FF6347"; // Used for ReferenceLine
+
 export const DashboardHistoryChart = ({ data, unit, historyOption }) => {
   return (
     <div className="history-chart-container">
       <ResponsiveContainer>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
+
+          {/* Add SVG Gradient Definition for Area Fill */}
+          <defs>
+            <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+              {/* Darker at the top (near the line) */}
+              <stop
+                offset="0%"
+                stopColor={ConstantChartColor.areaFill}
+                stopOpacity={0.4}
+              />
+              {/* Lighter/transparent at the bottom (near the X-axis) */}
+              <stop
+                offset="100%"
+                stopColor={ConstantChartColor.areaFill}
+                stopOpacity={0.0}
+              />
+            </linearGradient>
+          </defs>
+
           <XAxis
             dataKey="data"
             stroke={ConstantChartColor.axisLabel}
@@ -51,6 +76,16 @@ export const DashboardHistoryChart = ({ data, unit, historyOption }) => {
                     textFormatterForTooltip({ value: value, unit: unit })
             }
           />
+
+          {/* Conditional Threshold Visualization: Only include the ReferenceLine when historyOption is 0 */}
+          {historyOption === 0 && (
+            <ReferenceLine
+              y={THRESHOLD_Y}
+              stroke={RED_COLOR}
+              strokeDasharray="5 5"
+            />
+          )}
+
           <Line
             type="monotone"
             dataKey="value"

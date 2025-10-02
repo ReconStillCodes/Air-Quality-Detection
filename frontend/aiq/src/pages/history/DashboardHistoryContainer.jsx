@@ -70,6 +70,7 @@ export const DashboardHistoryContainer = () => {
     <div className="history-container">
       <h3 className="history-title">History Chart</h3>
       <h4 className="history-subtitle">{subtitle}</h4>
+
       <DashboardHistoryChart
         data={data}
         unit={unit}

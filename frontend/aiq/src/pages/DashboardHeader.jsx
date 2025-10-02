@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import "../index.css";
 import "../styling/header.css";
+import { ConstantHeaderText } from "../constant/Constant";
 import { dateFormatterForTooltip } from "../formatter/DateFormatter";
 
 import { DashboardProviderContext } from "../provider/DashboardProvider";
@@ -21,9 +22,14 @@ export const DashboardHeader = () => {
   }, [sensorDataList]);
   return (
     <div className="header">
-      <h3>Air Quality Detector</h3>
-      <h1>{quality}</h1>
-      <p>Updated {dateFormatterForTooltip(time)}</p>
+      <h3>{ConstantHeaderText.title}</h3>
+      <h4>{ConstantHeaderText.subtitle}</h4>
+      <h1 className={quality === "Normal" ? "quality-normal" : "quality-hot"}>
+        {quality}
+      </h1>
+      <p>
+        {ConstantHeaderText.updateDesc} {dateFormatterForTooltip(time)}
+      </p>
     </div>
   );
 };

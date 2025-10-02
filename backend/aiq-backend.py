@@ -1,9 +1,12 @@
 from datetime import datetime
 import eventlet
 eventlet.monkey_patch()
+from zoneinfo import ZoneInfo
 
 from flask import Flask, render_template, request, jsonify
 from flask_socketio import SocketIO, emit
+
+wib_timezone = ZoneInfo("Asia/Jakarta")
 
 
 class SensorData:
@@ -27,18 +30,33 @@ class SensorData:
 def calculate_quality_using_temperature(temperature: float) -> str:
     """Determines the air quality category based on Temperature."""
 
-    if temperature <= 25:
-        return "Good"
-    elif temperature <= 50: 
-        return "Moderate"
-    elif temperature <= 75:
-        return "Poor"
+    # For Assigment 2
+
+    # if temperature <= 25:
+    #     return "Good"
+    # elif temperature <= 50: 
+    #     return "Moderate"
+    # elif temperature <= 75:
+    #     return "Poor"
+    # else:
+    #     return "Hazardous"
+
+    if temperature < 27:
+        return "Normal"
     else:
-        return "Hazardous"
+        return "Hot"
     
 
 def is_buzzer_on(quality: str)->bool:
-    if(quality == 'Good'):
+
+    # For Assigment 2
+
+    # if(quality == 'Good'):
+    #     return False
+    # else:
+    #     return True
+
+    if(quality == 'Normal'):
         return False
     else:
         return True
@@ -73,7 +91,7 @@ def process_data():
             return jsonify({"error": "Missing one or more required fields (temperature, humidity, co)", "isBuzzerOn": False}), 400   
         
         #Calculate Timestamp & Quality
-        timestamp = datetime.now()
+        timestamp = datetime.now(wib_timezone)
         quality = calculate_quality_using_temperature(temperature)
         isBuzzerOn = is_buzzer_on(quality)
         

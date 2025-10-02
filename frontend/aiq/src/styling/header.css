@@ -9,7 +9,13 @@ h3 {
   color: var(--text);
   font-size: 1.5em;
   margin: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.75em;
+}
+
+h4 {
+  color: var(--border);
+  font-size: 1.25em;
+  margin: 0;
 }
 h1 {
   color: var(--primary);
@@ -18,8 +24,26 @@ h1 {
 }
 
 p {
-  color: var(--text-muted);
+  color: var(--border);
   font-size: 1em;
   margin: 0;
   margin-top: 0.5em;
+}
+
+.quality-normal {
+  background: linear-gradient(to bottom, #52c755, #248d27, #056608);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.quality-hot {
+  background: linear-gradient(to bottom, #e97452, #c34632, #8b0001);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
 }

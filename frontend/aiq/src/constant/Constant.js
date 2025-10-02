@@ -13,6 +13,7 @@ export const ConstantChartColor = {
   line: "hsl(264 74% 38%)",
   axisLabel: "hsl(271 100% 11%)",
   axisLine: "hsl(256, 100%, 78%)",
+  areaFill: "#hsl(256, 100%, 78%)",
 };
 
 export const ConstantText = {
@@ -28,4 +29,20 @@ export const ConstantText = {
   COUnit: "ppm",
   Quality: "Quality",
   QualityUnit: "",
+};
+
+export const ConstantHeaderText = {
+  title: "Air Quality Monitoring System",
+  subtitle: "Current Temperature Status",
+  updateDesc: "Updated",
+};
+
+export const ConstantFooterText = {
+  title: "Group 6 - IOT LCE1",
+  axelName: "Axel Nino Nakata",
+  axelNim: "2702749701",
+  matthewName: "Michael Matthew Muliawan",
+  matthewNim: "2702749834",
+  michelleName: "Samantha Michelle",
+  michelleNim: "2702749752",
 };

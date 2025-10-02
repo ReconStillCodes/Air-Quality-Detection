@@ -8,6 +8,7 @@ import { DashboardCardContainer } from "./card/DashboardCardContainer";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardBtnContainer } from "./btn/DashboardBtnContainer";
 import { DashboardHistoryContainer } from "./history/DashboardHistoryContainer";
+import { DashboardFooter } from "./footer/DashboardFooter";
 
 export const Dashboard = () => {
   return (
@@ -16,6 +17,7 @@ export const Dashboard = () => {
       <DashboardCardContainer />
       <DashboardBtnContainer />
       <DashboardHistoryContainer />
+      <DashboardFooter />
     </div>
   );
 };

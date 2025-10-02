@@ -22,7 +22,7 @@ body {
   background-color: var(--bg-dark);
   color: var(--text);
   box-sizing: border-box;
-  padding: 5em 10em 5em 10em;
+  padding: 5em 10em 10em 10em;
   width: 100vw;
 
   display: flex;

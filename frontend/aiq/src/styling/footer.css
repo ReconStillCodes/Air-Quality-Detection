@@ -1,0 +1,45 @@
+/* src/components/Footer.css */
+
+.footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  background-color: var(--primary);
+  color: var(--border-muted);
+  text-align: center;
+  padding: 1rem 0;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-fixed p {
+  color: var(--border-muted);
+  margin-bottom: 0.75em;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.75em;
+}
+
+.footer-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-name h1 {
+  color: var(--border-muted);
+  font-size: 1em;
+  text-align: center;
+}
+
+.footer-name p {
+  color: var(--border-muted);
+  font-size: 0.75em;
+  text-align: center;
+}

@@ -10,10 +10,10 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN apt-get purge -y --auto-remove gcc g++ 
+RUN apt-get purge -y --auto-remove gcc g++
 
 COPY . .
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--worker-class", "eventlet", "-w", "4", "-b", "0.0.0.0:5000", "aiq_backend:app"]
+CMD ["gunicorn", "--worker-class", "eventlet", "-w", "1", "-b", "0.0.0.0:5000", "aiq-backend:app"]

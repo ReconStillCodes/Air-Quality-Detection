@@ -1,28 +1,27 @@
 [Unit]
 Description=AIQ Backend Docker Container Service
-
-Ensure Docker is running before attempting to start this service
 Requires=docker.service
 After=docker.service
 
 [Service]
 
-Always restart the application if it fails or crashes
-Restart=always
+# Set the restart policy to always restart the container if it fails or stops
 
-Run the service as the root user for Docker access
+Restart=always
 User=root
 
---- !!! IMPORTANT: Replace 'your_username' with your actual image tag !!! ---
-ExecStart=/usr/bin/docker run --name aiq_backend -p 5000:5000 your_username/aiq-backend:latest
+# CRITICAL FIX: The ExecStart command is hardcoded to force Gunicorn to use
 
-Command to gracefully stop the container
+# a single worker (--workers 1). This permanently resolves the Socket.IO
+
+# connection issue that the frontend was experiencing.
+
+ExecStart=/usr/bin/docker run --name aiq_backend -p 5000:5000 aiq-backend-prod:latest gunicorn --workers 1 --worker-class eventlet -b 0.0.0.0:5000 'aiq-backend:app'
+
+# Commands to gracefully stop and clean up the container
+
 ExecStop=/usr/bin/docker stop aiq_backend
-
-Command to remove the container instance after stopping (allows clean restarts)
 ExecStopPost=/usr/bin/docker rm aiq_backend
 
 [Install]
-
-Enable the service to start automatically when the server boots up
 WantedBy=multi-user.target
