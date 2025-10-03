@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    # No need to explicitly expose 5000 since nginx is on the same network
+    # expose:
+    #   - 5000
+    container_name: flask_socket_backend
+    environment:
+      # Ensures Python output is immediately available for logging
+      PYTHONUNBUFFERED: 1
+    restart: always
+
+  nginx:
+    # Use the build context and Dockerfile from your frontend directory
+    build:
+      context: ./frontend/aiq
+      dockerfile: Dockerfile
+    container_name: nginx_reverse_proxy
+    volumes:
+      # Mounts your custom Nginx config, overriding the default config that was
+      # bundled in the base image during the build stage.
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      # This is the ONLY port exposed publicly
+      - "80:80"
+
+    depends_on:
+      - backend
+      # Removed dependency on 'frontend' as it is now merged here.
+
+    restart: always

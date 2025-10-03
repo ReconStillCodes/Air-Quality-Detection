@@ -12,8 +12,8 @@ export const ConstantChartColor = {
   sliderValue: "hsl(264 74% 38%)",
   line: "hsl(264 74% 38%)",
   axisLabel: "hsl(271 100% 11%)",
-  axisLine: "hsl(256, 100%, 78%)",
-  areaFill: "#hsl(256, 100%, 78%)",
+  axisLine: "hsl(271 100% 11%)",
+  areaFill: "hsl(264 74% 38%)",
 };
 
 export const ConstantText = {
@@ -35,6 +35,14 @@ export const ConstantHeaderText = {
   title: "Air Quality Monitoring System",
   subtitle: "Current Temperature Status",
   updateDesc: "Updated",
+};
+
+export const ConstantTableText = {
+  timestamp: "Recorded Time",
+  temperature: "Temperature",
+  humidity: "Humidity",
+  co: "CO",
+  quality: "Temp Status",
 };
 
 export const ConstantFooterText = {

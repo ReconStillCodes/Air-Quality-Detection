@@ -1,0 +1,121 @@
+.table-container {
+  padding: 1.5em;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-header {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 500;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 0.9em 1.2em;
+
+  background-color: color-mix(in srgb, var(--border-muted) 15%, transparent);
+  /* border-bottom: 1px solid var(--border-muted); */
+
+  border-radius: 10px;
+  margin-bottom: 0.6em;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 0.9em 1.2em;
+
+  background-color: var(--primary);
+  color: whitesmoke;
+
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
+
+.table-header-cell {
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: whitesmoke;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.table-row:hover {
+  background-color: color-mix(in srgb, var(--border-muted) 25%, transparent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.table-cell {
+  text-align: center;
+  font-size: 0.8em;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-cell.quality {
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  padding: 0.4em 0.8em;
+  max-width: 100px;
+}
+
+.table-quality-normal {
+  color: #247526;
+  font-weight: 600;
+}
+
+.table-quality-hot {
+  color: #db2f2c;
+  font-weight: 600;
+}
+
+.table-pagination-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.5em;
+  margin: 1em 0;
+}
+
+.page-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+
+  padding: 0.5em 0.9em;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.page-btn:hover {
+  background: var(--bg-dark);
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-btn.active {
+  background: var(--bg-dark);
+  font-weight: bold;
+}

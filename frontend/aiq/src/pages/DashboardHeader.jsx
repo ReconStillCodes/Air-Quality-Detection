@@ -10,7 +10,7 @@ import { DashboardProviderContext } from "../provider/DashboardProvider";
 export const DashboardHeader = () => {
   const { sensorDataList } = useContext(DashboardProviderContext);
 
-  const [quality, setQuality] = useState("Good");
+  const [quality, setQuality] = useState("Normal");
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const DashboardHeader = () => {
     <div className="header">
       <h3>{ConstantHeaderText.title}</h3>
       <h4>{ConstantHeaderText.subtitle}</h4>
-      <h1 className={quality === "Normal" ? "quality-normal" : "quality-hot"}>
+      <h1 className={quality === "Hot" ? "quality-hot" : "quality-normal"}>
         {quality}
       </h1>
       <p>

@@ -31,19 +31,9 @@ p {
 }
 
 .quality-normal {
-  background: linear-gradient(to bottom, #52c755, #248d27, #056608);
-
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  color: transparent;
+  color: #247526;
 }
 
 .quality-hot {
-  background: linear-gradient(to bottom, #e97452, #c34632, #8b0001);
-
-  -webkit-background-clip: text;
-  background-clip: text;
-
-  color: transparent;
+  color: #db2f2c;
 }
