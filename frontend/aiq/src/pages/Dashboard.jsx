@@ -20,11 +20,13 @@ export const Dashboard = () => {
   }
   return (
     <div className="dashboard">
-      <DashboardHeader />
-      <DashboardCardContainer />
-      <DashboardBtnContainer />
-      <DashboardHistoryContainer />
-      <DashboardTable />
+      <div className="dashboard-container">
+        <DashboardHeader />
+        <DashboardCardContainer />
+        <DashboardBtnContainer />
+        <DashboardHistoryContainer />
+        <DashboardTable />
+      </div>
       <DashboardFooter />
     </div>
   );

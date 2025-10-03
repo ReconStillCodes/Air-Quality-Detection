@@ -4,13 +4,14 @@
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100vw;
+  width: 100%;
   z-index: 1000;
   background-color: var(--primary);
   color: var(--border-muted);
   text-align: center;
   padding: 1rem 0;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  overflow-x: hidden;
 }
 
 .footer-fixed p {
