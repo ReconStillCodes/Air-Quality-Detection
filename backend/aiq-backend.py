@@ -22,7 +22,7 @@ CSV_FILE_PATH = 'aiq-data.csv'
 
 app = Flask(__name__, static_folder="../frontend/aiq/dist/")
 CORS(app) 
-app.config['SECRET_KEY'] = 'knphidupsusah'
+app.config['SECRET_KEY'] = 'secret!'
 
 # Initialize SocketIO for real-time communication
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet') 
