@@ -4,10 +4,10 @@ GitHub Link
 https://github.com/ReconStillCodes/Air-Quality-Detection.git
 
 Backend IP:
-52.77.118.58
+http://52.77.118.58/api/data
 
 Frontend Link:
-http://air-quality-detection.s3-website-ap-southeast-1.amazonaws.com
+http://52.77.118.58
 
 How to send data:
 
@@ -19,7 +19,7 @@ How to send data:
    }
 
 2. HTTP request use POST
-3. Connect it to http://52.77.118.58/data
+3. Connect it to http://52.77.118.58/api/data
 4. Expect return message
    {
    "isBuzzerOn": [true / false],
@@ -27,4 +27,25 @@ How to send data:
    }
 
 Example cURL usage:
-curl -X POST -H "Content-Type: application/json" -d "{\"temperature\": 53, \"humidity\": 88, \"co\": 0.3}" http://52.77.118.58/data
+curl -X POST -H "Content-Type: application/json" -d "{\"temperature\": 53, \"humidity\": 88, \"co\": 0.3}" http://52.77.118.58/api/data
+
+# ==========================
+
+All API Calls
+
+1. Post Sensor Data
+   Method = POST
+   http://52.77.118.58/api/data
+   {
+   "temperature": 20,
+   "humidity": 80,
+   "co": 0.01
+   }
+
+2. Get Table With Pagination
+   Method = GET
+   http://52.77.118.58/data/table?page=2&size=20
+
+3. Get Chart (show 20 data)
+   Method = GET
+   http://52.77.118.58/api/data/chart
