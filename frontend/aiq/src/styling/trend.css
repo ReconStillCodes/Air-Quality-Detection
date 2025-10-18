@@ -1,0 +1,67 @@
+.trend-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1.5em;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.trend-title {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.5em;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.trend-subtitle {
+  margin: 0 0 2em 0;
+  color: var(--text-muted);
+  font-size: 1.25em;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.trend-legend-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 1em;
+  gap: 1em;
+  flex-wrap: wrap;
+  margin-top: 0.5em;
+  font-size: 0.8em;
+}
+
+.trend-circle {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border-color: --var(--secondary);
+  border: 1px solid;
+  margin-right: 0.5em;
+}
+
+.trend-good {
+  background-color: #778bfc;
+}
+
+.trend-moderate {
+  background-color: #46a348;
+}
+
+.trend-poor {
+  background-color: #ffc054;
+}
+
+.trend-hazardous {
+  background-color: #db2f2c;
+}

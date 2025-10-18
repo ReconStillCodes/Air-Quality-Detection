@@ -31,11 +31,20 @@ export const DashboardTableRow = ({
       <div className="table-cell">
         {textFormatterForTooltip({ value: co, unit: ConstantText.COUnit })}
       </div>
-      <div
-        className={`table-cell ${
-          quality === "Normal" ? "table-quality-normal" : "table-quality-hot"
-        }`}
-      >
+      <div className={`table-cell`}>
+        <span
+          className={`table-circle ${
+            quality === "Good"
+              ? "table-quality-good"
+              : quality === "Moderate"
+              ? "table-quality-moderate"
+              : quality === "Poor"
+              ? "table-quality-poor"
+              : quality === "Hazardous"
+              ? "table-quality-hazardous"
+              : "table-quality-good"
+          }`}
+        ></span>
         {quality}
       </div>
     </div>

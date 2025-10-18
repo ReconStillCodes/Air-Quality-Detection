@@ -23,8 +23,21 @@ export const DashboardHeader = () => {
   return (
     <div className="header">
       <h3>{ConstantHeaderText.title}</h3>
-      <h4>{ConstantHeaderText.subtitle}</h4>
-      <h1 className={quality === "Hot" ? "quality-hot" : "quality-normal"}>
+      {/* <h4>{ConstantHeaderText.subtitle}</h4> */}
+      <h1
+        className={
+          "h1 " +
+          (quality === "Good"
+            ? "quality-good"
+            : quality === "Moderate"
+            ? "quality-moderate"
+            : quality === "Poor"
+            ? "quality-poor"
+            : quality === "Hazardous"
+            ? "quality-hazardous"
+            : "quality-good")
+        }
+      >
         {quality}
       </h1>
       <p>

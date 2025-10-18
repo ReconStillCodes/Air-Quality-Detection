@@ -1,7 +1,7 @@
 /* src/components/Footer.css */
 
 .footer-fixed {
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   left: 0;
   width: 100%;
@@ -33,7 +33,7 @@
   align-items: center;
 }
 
-.footer-name h1 {
+.footer-name-h1 {
   color: var(--border-muted);
   font-size: 1em;
   text-align: center;

@@ -11,6 +11,8 @@ import { DashboardBtnContainer } from "./btn/DashboardBtnContainer";
 import { DashboardHistoryContainer } from "./history/DashboardHistoryContainer";
 import { DashboardFooter } from "./footer/DashboardFooter";
 import { DashboardTable } from "./table/DashboardTable";
+import { DashboardTrend } from "./trend/DashboardTrend";
+import { DashboardControl } from "./control/DashboardControl";
 
 export const Dashboard = () => {
   const { isLoading } = useContext(DashboardProviderContext);
@@ -25,6 +27,11 @@ export const Dashboard = () => {
         <DashboardCardContainer />
         <DashboardBtnContainer />
         <DashboardHistoryContainer />
+
+        <div className="dashboard-h-container">
+          <DashboardControl />
+          <DashboardTrend />
+        </div>
         <DashboardTable />
       </div>
       <DashboardFooter />

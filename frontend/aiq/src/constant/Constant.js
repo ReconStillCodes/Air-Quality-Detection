@@ -32,7 +32,7 @@ export const ConstantText = {
 };
 
 export const ConstantHeaderText = {
-  title: "Air Quality Monitoring System",
+  title: "Air Quality Detection",
   subtitle: "Current Temperature Status",
   updateDesc: "Updated",
 };
@@ -42,7 +42,7 @@ export const ConstantTableText = {
   temperature: "Temperature",
   humidity: "Humidity",
   co: "CO",
-  quality: "Temp Status",
+  quality: "Quality",
 };
 
 export const ConstantFooterText = {
@@ -53,4 +53,27 @@ export const ConstantFooterText = {
   matthewNim: "2702749834",
   michelleName: "Samantha Michelle",
   michelleNim: "2702749752",
+};
+
+export const ConstantControlText = {
+  title: "Humdifier Control",
+  autoLabel: "Automatic Mode",
+  controlLabel: "Humidifier",
+};
+
+export const ConstantTrendText = {
+  title: "Trend Analytics",
+  desc: "Air Quality data over time.",
+  option: {
+    option1: "1 Minute",
+    option2: "5 Minutes",
+    option3: "10 Minutes",
+    option4: "30 Minutes",
+  },
+  legend: {
+    good: "Good",
+    moderate: "Moderate",
+    poor: "Poor",
+    hazardous: "Hazardous",
+  },
 };

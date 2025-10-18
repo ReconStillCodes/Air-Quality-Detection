@@ -12,7 +12,7 @@ export const DashboardBtnContainer = () => {
       <DashboardBtn label={ConstantText.TemperatureTitle} option={0} />
       <DashboardBtn label={ConstantText.HumidityTitle} option={1} />
       <DashboardBtn label={ConstantText.COTitle} option={2} />
-      {/* <DashboardBtn label={ConstantText.Quality} option={3} /> */}
+      <DashboardBtn label={ConstantText.Quality} option={3} />
     </div>
   );
 };

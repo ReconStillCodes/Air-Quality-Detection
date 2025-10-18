@@ -59,7 +59,10 @@ export const DashboardHistoryChart = ({ data, unit, historyOption }) => {
             tickFormatter={
               historyOption === 3 ? textFormatterForQuality : undefined
             }
-            tick={{ angle: historyOption === 3 ? -60 : 0 }}
+            tick={{
+              angle: historyOption === 3 ? -60 : 0,
+              dx: -10,
+            }}
           />
           <Tooltip
             labelFormatter={dateFormatterForTooltip}
@@ -70,9 +73,9 @@ export const DashboardHistoryChart = ({ data, unit, historyOption }) => {
             }
           />
 
-          {historyOption === 0 && (
+          {/* {historyOption === 0 && (
             <ReferenceLine y={THRESHOLD_Y} stroke={RED_COLOR} strokeWidth={3} />
-          )}
+          )} */}
 
           {/* Main Area with line + gradient fill */}
           <Area

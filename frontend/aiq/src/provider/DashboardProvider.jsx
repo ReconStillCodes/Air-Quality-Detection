@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import io from "socket.io-client";
-import { fetchChartData, fetchTablePage } from "../utility/ApiConnection";
+import {
+  fetchChartData,
+  fetchTablePage,
+  fetchTrendData,
+  postControlStatus,
+} from "../utility/ApiConnection";
+import { TrendData } from "../model/TrendData";
+import { useTrendLoader } from "../utility/hooks";
 
 export const DashboardProviderContext = React.createContext();
 
 const getBackendUrl = () => {
   return import.meta.env.VITE_SOCKET_URL;
 };
+
+// ==========================================================
+// STATE MANAGEMENT
+// ==========================================================
 
 export const DashboardProvider = ({ children }) => {
   const backendUrl = getBackendUrl();
@@ -20,21 +31,43 @@ export const DashboardProvider = ({ children }) => {
   const [tableDataCache, setTableDataCache] = useState({});
   const [totalPages, setTotalPages] = useState(0);
 
+  const [isAutoMode, setIsAutoMode] = useState(true);
+  const [isControlOn, setIsControlOn] = useState(true);
+
+  const {
+    trendData,
+    setTrendData,
+    trendOption,
+    setTrendOption,
+    loadTrendData,
+  } = useTrendLoader();
+
+  // ================================
+  // DERIVED STATE
+  // ================================
+  const currentControlStatus = useMemo(() => {
+    if (isAutoMode) return "auto";
+    if (isControlOn) return "on";
+    return "off";
+  }, [isAutoMode, isControlOn]);
+
+  // ================================
+  // SOCKET + INITIAL DATA
+  // ================================
   useEffect(() => {
-    // Socket connection uses backendUrl (VITE_SOCKET_URL = /)
     const socket = io(backendUrl);
 
     const initLoad = async () => {
       try {
-        // 1. fetch chart data (fetchChartData now gets the URL internally)
         const chartData = await fetchChartData();
-        setSensorDataList(chartData); // 2. fetch first table page (fetchTablePage now gets the URL internally)
+        setSensorDataList(chartData);
 
         const tablePage = await fetchTablePage(currPage, 20);
-
         setTableData(tablePage.data);
         setTableDataCache((prev) => ({ ...prev, [currPage]: tablePage.data }));
         setTotalPages(tablePage.metadata.total_pages);
+
+        await loadTrendData(trendOption);
 
         setIsLoading(false);
       } catch (err) {
@@ -46,29 +79,27 @@ export const DashboardProvider = ({ children }) => {
     initLoad();
 
     socket.on("live_data_update", (payload) => {
-      const latestRecords = payload.data;
+      const { data: latestRecords, trend_data: trendUpdate } = payload;
 
       if (latestRecords?.length > 0) {
         setSensorDataList(latestRecords);
 
-        setTableDataCache((prev) => ({
-          ...prev,
-          1: latestRecords,
-        }));
-
-        if (currPage === 1) {
-          setTableData(latestRecords);
-        } else {
-          setTableDataCache({});
+        if (trendUpdate) {
+          loadTrendData(null, trendUpdate);
         }
+
+        setTableDataCache((prev) => ({ ...prev, 1: latestRecords }));
+        if (currPage === 1) setTableData(latestRecords);
+        else setTableDataCache({});
       }
     });
 
-    return () => {
-      socket.disconnect();
-    };
-  }, [backendUrl, currPage]);
+    return () => socket.disconnect();
+  }, [backendUrl, currPage, trendOption, loadTrendData]);
 
+  // ================================
+  // PAGINATION LOADER
+  // ================================
   useEffect(() => {
     const loadPageData = async () => {
       if (tableDataCache[currPage]) {
@@ -77,15 +108,9 @@ export const DashboardProvider = ({ children }) => {
       }
 
       try {
-        // fetchTablePage no longer needs the URL argument
         const response = await fetchTablePage(currPage, 20);
-
         setTableData(response.data);
-
-        setTableDataCache((prev) => ({
-          ...prev,
-          [currPage]: response.data,
-        }));
+        setTableDataCache((prev) => ({ ...prev, [currPage]: response.data }));
 
         if (response.metadata?.total_pages) {
           setTotalPages(response.metadata.total_pages);
@@ -96,7 +121,25 @@ export const DashboardProvider = ({ children }) => {
     };
 
     loadPageData();
-  }, [currPage, backendUrl, tableDataCache]);
+  }, [currPage]);
+
+  // ================================
+  // CONTROL STATUS SYNC
+  // ================================
+  useEffect(() => {
+    if (isLoading) return;
+
+    const syncControlStatus = async () => {
+      try {
+        await postControlStatus(currentControlStatus);
+        console.log("Control status synced:", currentControlStatus);
+      } catch (err) {
+        console.error("Failed to sync control status:", err);
+      }
+    };
+
+    syncControlStatus();
+  }, [currentControlStatus, isLoading]);
 
   return (
     <DashboardProviderContext.Provider
@@ -114,6 +157,14 @@ export const DashboardProvider = ({ children }) => {
         setTableDataCache,
         totalPages,
         setTotalPages,
+        isAutoMode,
+        setIsAutoMode,
+        isControlOn,
+        setIsControlOn,
+        trendData,
+        setTrendData,
+        trendOption,
+        setTrendOption,
       }}
     >
       {children}

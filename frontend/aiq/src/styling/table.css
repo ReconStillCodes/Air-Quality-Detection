@@ -48,6 +48,9 @@
   color: whitesmoke;
   font-size: 1em;
   font-weight: 700;
+
+  width: 100%;
+  text-align: left;
 }
 
 .table-row:hover {
@@ -64,6 +67,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  width: 100%;
+  text-align: left;
 }
 
 .table-cell.quality {
@@ -74,14 +80,30 @@
   max-width: 100px;
 }
 
-.table-quality-normal {
-  color: #247526;
-  font-weight: 600;
+.table-quality-good {
+  background-color: #778bfc;
 }
 
-.table-quality-hot {
-  color: #db2f2c;
-  font-weight: 600;
+.table-quality-moderate {
+  background-color: #46a348;
+}
+
+.table-quality-poor {
+  background-color: #ffc054;
+}
+
+.table-quality-hazardous {
+  background-color: #db2f2c;
+}
+
+.table-circle {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border-color: --var(--secondary);
+  border: 2px solid;
+  margin-right: 0.5em;
 }
 
 .table-pagination-container {

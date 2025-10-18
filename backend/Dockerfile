@@ -23,4 +23,3 @@ EXPOSE 5000
 
 # Command to run the application using Gunicorn with eventlet workers
 CMD ["gunicorn", "--worker-class", "eventlet", "-w", "1", "-b", "0.0.0.0:5000", "aiq-backend:app"]
-
