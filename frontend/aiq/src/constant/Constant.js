@@ -56,9 +56,13 @@ export const ConstantFooterText = {
 };
 
 export const ConstantControlText = {
-  title: "Humdifier Control",
+  title: "Fan Control",
   autoLabel: "Automatic Mode",
-  controlLabel: "Humidifier",
+  controlLabel: "Fan",
+  humidifierImgSrc: "control-humdifier.png",
+  fanImgSrc: "fan.png",
+  humidifierImgAlt: "Humidifier",
+  fanImgAlt: "Fan",
 };
 
 export const ConstantTrendText = {

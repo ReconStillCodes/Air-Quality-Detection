@@ -4,7 +4,7 @@ import { DashboardProviderContext } from "../../provider/DashboardProvider";
 import { DashboardControlToggle } from "./DashboardControlToggle";
 import { useContext } from "react";
 import { ConstantControlText } from "../../constant/Constant";
-import image from "../../assets/control-humdifier.png";
+import image from "../../assets/fan.png";
 
 export const DashboardControl = () => {
   const { isAutoMode, setIsAutoMode, isControlOn, setIsControlOn } = useContext(
@@ -28,7 +28,11 @@ export const DashboardControl = () => {
         setIsOn={setIsControlOn}
       />
 
-      <img src={image} alt="Humidifier" className="control-image" />
+      <img
+        src={image}
+        alt={ConstantControlText.fanImgAlt}
+        className="control-image"
+      />
     </div>
   );
 };
