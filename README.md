@@ -1,7 +1,7 @@
 # Real-Time AIoT Air Quality Monitoring & Control System
 
 <p align="center">
-  <img src="project-showcase.jpg" width="350">
+  <img src="Project-Showcase-Assg2.jpg" width="350">
 </p>
 
 A comprehensive, AI-driven IoT solution for monitoring and actively responding to real-time air quality. This system, an evolution of a previous prototype, uses an ESP8266 to send sensor data (CO, Temp, Hum) to a cloud backend for AI classification. It receives a quality (Good, Moderate, Poor, Hazardous) and control_status (on, off, auto), enabling a closed-loop system that intelligently manages local alerts and an automated fan to improve air quality.
