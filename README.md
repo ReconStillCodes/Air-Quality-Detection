@@ -55,7 +55,7 @@ The project is built on the standard Three-Layer IoT Architecture:
 
 This repository contains two primary firmware files for the ESP8266: one for calibration and one for main operation.
 
-### Part 1: Calibrating the MQ-7 Sensor (See Main Branch)
+### Part 1: Calibrating the MQ-7 Sensor
 
 A one-time calibration is **required** to establish the sensor's baseline resistance ($R_0$) in clean air.
 
@@ -67,7 +67,7 @@ A one-time calibration is **required** to establish the sensor's baseline resist
 
 ### Part 2: Main Monitoring Firmware
 
-1.  **Open the Main Code**: Load the `IoT_airQuality_assg2.ino` file into your Arduino IDE.
+1.  **Open the Main Code**: Load the `AirQualityMonitoringSystem.ino` file into your Arduino IDE.
 2.  **Update Wi-Fi Credentials**: Change the `ssid` and `pass` variables to your Wi-Fi network's name and password.
     ```cpp
     char ssid[] = "YOUR_WIFI_NAME";
